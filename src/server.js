@@ -22,8 +22,19 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3001
 
-// Middleware
-app.use(cors())
+// CORS configuration
+const corsOptions = {
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://ecossistema-maximiza-frontend-maximiza.gkgtsp.easypanel.host'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions)) // Enable pre-flight for all routes
 app.use(express.json())
 
 // Routes
